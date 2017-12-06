@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link type="text/css" rel="stylesheet" href="validationStyles.css"/>
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Vue -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+
+  <!-- Vuelidate -->
+  <script src="https://unpkg.com/vuelidate/dist/vuelidate.min.js"></script>
+  <script src="https://unpkg.com/vuelidate/dist/validators.min.js"></script>
+
+  <!-- toggle yes/no on radio button -->
+  <script src="to-next.js"></script>
+
+  <!-- styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <title>Załóż konto</title>
+
+</head>
+<body>
+  <div id="form">
+  <div class="container" id="camp-form" style="padding: 80px">
+    <!-- header img dla zakładania konta -->
+    <img src="images/create-account.png" alt="Załóż konto">
+    <br/>
+    <div id="registration">
+    <form>
+      <!-- dane do logowania do konta -->
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="email">Email*:</label>
+          <input type="text" class="form-control" id="email" placeholder="Email"
+                 v-model="email" v-on:input="$v.email.$touch"
+                 v-bind:class="{error: $v.email.$error,
+                                valid: $v.email.$dirty && !$v.email.$invalid}">
+          <h6>*Email stanowić będzie również Twój login</h6>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="password">Hasło:</label>
+          <input type="text" class="form-control" id="password" placeholder="Hasło"
+                 v-model="password" v-on:input="$v.password.$touch"
+                 v-bind:class="{error: $v.password.$error,
+                                valid: $v.password.$dirty && !$v.password.$invalid}">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="repeatedPassword">Powtórz hasło:</label>
+          <input type="text" class="form-control" id="repeatedPassword" placeholder="Powtórz hasło"
+                 v-model="repeatedPassword" v-on:input="$v.repeatedPassword.$touch"
+                 v-bind:class="{error: $v.repeatedPassword.$error,
+                                valid: $v.repeatedPassword.$dirty && !$v.repeatedPassword.$invalid}">
+        </div>
+      </div>
+
+      <div><img src="images/green-line.png" alt=""></div>
+
+      <!-- imormacje ogólne -->
+      <!-- header img for personal info -->
+      <img src="images/info_osobisteblue.png" alt="Informacje osobiste">
+      <br/>
+      <div class="row">
+
+        <div class="form-group col-md-6">
+          <label for="fist-name">Imię:</label>
+          <input placeholder="Imię" type="text" class="form-control" id="first-name"
+                 v-model="person.name" v-on:input="$v.person.name.$touch"
+                 v-bind:class="{error: $v.person.name.$error,
+                                valid: $v.person.name.$dirty && !$v.person.name.$invalid}">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="last-name">Nazwisko:</label>
+          <input placeholder="Nazwisko" type="text" class="form-control" id="last-name"
+                 v-model="person.surname" v-on:input="$v.person.surname.$touch"
+                 v-bind:class="{error: $v.person.surname.$error,
+                                valid: $v.person.surname.$dirty && !$v.person.surname.$invalid}">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="pesel">Pesel:</label>
+          <input type="text" class="form-control" id="pesel" placeholder="Pesel"
+                 v-model="person.pesel" v-on:input="$v.person.pesel.$touch"
+                 v-bind:class="{error: $v.person.pesel.$error,
+                                valid: $v.person.pesel.$dirty && !$v.person.pesel.$invalid}">
+        </div>
+        <div class="form-group col-md-6">
+          <!-- TO FIX: do zrobiienia walidacja numeru telefonu ^^ -->
+          <label for="phone">Telefon:</label>
+          <!--<input type="text" class="form-control" id="phone" placeholder="Telefon">-->
+          <div class="">
+            <input type="tel" maxlength="3" pattern="^\d{3}$" class="col-xs-2" require placeholder="XXX">
+            <div class="col-xs-1">-</div>
+            <input type="tel" maxlength="3" pattern="^\d{3}$" class="col-xs-2" require placeholder="XXX">
+            <div class="col-xs-1">-</div>
+            <input type="tel" maxlength="3" pattern="^\d{3}$" class="col-xs-2" require placeholder="XXX" title="phone number">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Dane adresowe -->
+      <div class="row" style="padding: 14px">
+        <!-- header img for adres -->
+        <img src="images/adresblue.png" alt="Adres">
+        <br/>
+        <div class="row">
+          <div class="form-group col-sm-4">
+            <label for="city">Miasto:</label>
+            <input type="text" class="form-control" id="city" placeholder="Miasto"
+                   v-model="person.city" v-on:input="$v.person.city.$touch"
+                   v-bind:class="{error: $v.person.city.$error,
+                                  valid: $v.person.city.$dirty && !$v.person.city.$invalid}">
+          </div>
+          <div class="form-group col-sm-2">
+            <!-- TO FIX do zrobieia walidacja kodu -->
+            <label for="postCode">Kod:</label>
+            <input type="text" class="form-control" id="postCode" placeholder="Kod">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-4">
+            <label for="street">Uica:</label>
+            <input type="text" class="form-control" id="street" placeholder="Ulica"
+                   v-model="person.street" v-on:input="$v.person.street.$touch"
+                   v-bind:class="{error: $v.person.street.$error,
+                                  valid: $v.person.street.$dirty && !$v.person.street.$invalid}">
+          </div>
+          <div class="form-group col-sm-2">
+            <label for="number">Numer:</label>
+            <!-- TO FIX: nie działa dla numerów typu 22/18  -->
+            <input type="text" class="form-control" id="number" placeholder="Nr"
+                   v-model="person.number" v-on:input="$v.person.number.$touch"
+                   v-bind:class="{error: $v.person.number.$error,
+                                  valid: $v.person.number.$dirty && !$v.person.number.$invalid}">
+          </div>
+        </div>
+      </div>
+
+      <!-- Adds another person to the account -->
+      <button style="border: none" type="submit" class="btn btn-default">
+        <img src="images/blue-box.png" alt="Wyślij"></button>
+      <!--<input class="add-person" type="submit" value="Dodaj osobę" v-on:click="addPerson">-->
+      <br/>
+      <div style="padding-top: 15px"><img src="images/green-line.png" alt=""></div>
+
+      </form>
+
+      <!-- List Of People Added To The Account-->
+      <!-- header img for people added to the account -->
+      <img src="images/osobyyellow.png" alt="Osoby dodane do konta">
+      <br/>
+      <ul class="list-unstyled">
+      <li
+        is="person"
+        v-for="(person, index) in people"
+        v-bind:name="person.name"
+        v-bind:surname="person.surname"
+        v-on:remove="people.splice(index, 1)"
+        v-on:edit="edit(person, index)"
+      ></li>
+      </ul>
+
+      <button style="border: none" type="submit" class="btn btn-default col-xs-offset-9 col-xs-3" v-on:click="submit"><img src="images/yellow-arrow-send.png" alt="Wyślij"></button>
+
+
+  </div>
+  </div>
+
+  <!-- vuealidators -->
+  <script src="main.js"></script>
+
+</body>
+</html>

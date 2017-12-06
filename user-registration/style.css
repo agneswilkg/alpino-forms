@@ -1,0 +1,33 @@
+@font-face { font-family: OpenSans; src: url('OpenSans.ttf'); }
+@font-face { font-family: RalewayRegular; src: url('Raleway-Regular.ttf');}
+
+
+div {
+  font-family: 'RalewayRegular';
+  text-align: left;
+  font-size: 15px;
+}
+
+img {
+  padding-bottom: 20px;
+}
+
+input {
+  border-radius: 0px;
+}
+
+.form-control {
+  border-radius: 0px;
+}
+
+.btn-group-xs {
+  border-radius: 0px;
+}
+
+.add-person, .person {
+  border-radius: 0px;
+  background-color: transparent;
+  border: none;
+  color: #fbb100;
+  text-transform: uppercase;
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- Latest compiled and minified CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Vue -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+
+  <!-- Vuelidate -->
+  <script src="https://unpkg.com/vuelidate/dist/vuelidate.min.js"></script>
+  <script src="https://unpkg.com/vuelidate/dist/validators.min.js"></script>
+
+  <script src="camp-form-yes-no.js"></script>
+
+  <!-- styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <title>Zapisz się na obóz</title>
+
+</head>
+<body>
+  <div class="container" id="camps" style="padding: 80px">
+    <img src="images/sign-for-camp.png" alt="Zapisz się na obóz">
+    <div id="camps">
+
+</div>
+
+    <form>
+      <div class="form-group">
+        <div class="row">
+          <div class="form-group">
+            <label for="sel1">Wybierz obóz:</label>
+            <select class="form-control" id="sel1" v-model="date">
+              <option v-for="camp in camps"
+              v-bind:title="camp.title"
+              v-bind:value="camp.date"
+              v-bind:winter="camp.winter"
+              >{{ camp.title }}</option>
+            </select>
+          </div>
+          <div>
+            <label>Termin obozu:</label>
+            <span>{{ date }}</span>
+          </div>
+          <div class="form-group">
+            <label for="transport">Transport:</label>
+            <br/>
+            <label class="radio-in-line"><input type="radio" name="optradio">Dojadę sam    </label>
+            <label class="radio-in-line"><input type="radio" name="optradio">Transport Alpino</label>
+          </div>
+          <div class="form-group">
+            <label for="comment">Informacje dodatkowe:</label>
+            <textarea class="form-control" rows="5" id="comment"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Dyscyplina do rozwijania na obozie zimowym:</label>
+            <br/>
+            <label class="radio-in-line"><input type="radio" name="optradio">Narty</label>
+            <label class="radio-in-line"><input type="radio" name="optradio">Snowboard</label>
+          </div>
+          <div class="form-group">
+            <label>Czy jesteś na obozie Alpino po raz pierwszy?</label>
+            <br/>
+            <label class="radio-in-line"><input id='yes' name='optradio' type='radio' checked/>Tak</label>
+            <label class="radio-in-line"><input id='no' name='optradio' type='radio' />Nie</label>
+          </div>
+
+          <!-- Appears just if 'yes' radio is checked -->
+          <div class="form-group" id="show-me">
+            <label>Poziom zaawansowania:</label>
+            <div class="row">
+              <div class="col-md-3">
+                <label class="radio-in-line"><input type="radio" name="optradio">Od zera</label>
+                <div>
+                  <p>Od 0 do 3 dni spędzonych na śniegu</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="radio-in-line"><input type="radio" name="optradio">Podstawowy</label>
+                <div>
+                  <p>Potrafię samodzielnie ubrać sprzęt, wjechać orczykiem oraz zjechać w miarę sprawnie z góry</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="radio-in-line"><input type="radio" name="optradio">Średni</label>
+                <div>
+                  <p>Potrafię sprawnie zjechać trasą czerwoną, kontroluję prędkość w każdych warunkach, znam zasady bezpiecznego zachowania się na stoku</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <label class="radio-in-line"><input type="radio" name="optradio">Zaawansowany</label>
+                <div>
+                  <p>Potrafię jeździć poza trasą, wykonywać skoki proste, jeździć na tyczkach</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <h6>Wyrażam zgodę na umieszczenie moich danych osobowych w bazie danych oraz na ich przetwarzanie w celach marketingowych zgodnie z Ustawą z dn. 29 sierpnia 1997 r. o ochronie danych osobowych (Dz. U. Nr 133, poz. 883) przez alpino.pl w tym na przesyłanie informacji handlowych w formie pocztowej, elektronicznej na adres e-mail lub numer telefonu wskazany powyżej. Oświadczam, że zostałam(em) powiadomiona(y) o przysługującym mi prawie wglądu do moich danych osobowych oraz prawie do ich poprawiania, oraz że dane zostały podane dobrowolnie:*</h6>
+            <div class="checkbox col-xs-offset-9 col-xs-3">
+              <label><input type="checkbox" value="">Wyrażam zgodę</label>
+            </div>
+        </div>
+        <button style="border: none" type="submit" class="btn btn-default col-xs-offset-9 col-xs-3" v-on:click="submit">
+          <img src="images/yellow-arrow-save.png" alt="Wyślij"></button>
+      </div>
+    </form>
+  </div>
+
+  <!-- new Vue #camp -->
+  <script src="main.js"></script>
+
+</body>
+</html>
